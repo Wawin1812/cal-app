@@ -1,101 +1,106 @@
 import React, { Component } from "react";
 import "./App.css";
-import Button from "./components/Button";
-import Display from "./components/Display";
-import math from "math.js";
+import Buttons from "./components/Buttons";
+import Result from "./components/Result";
+//import * as math from "math.js";
 
 function Percentage(props) {
   return props.number / 100;
 }
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { display: "" };
-    this.onClick = this.onClick.bind(this);
-  }
-  onClick(btn) {
-    if (btn === "C") this.reset();
-    else if (btn === "CE") this.backspace();
-    else if (btn === "=") this.result();
-    else if (btn === "sqrt") this.sqrt();
-    else if (btn === "%") this.percentage();
-    else if (this.state.length > 17)
-      this.setState({
-        display: this.state.display
-      });
-    else
-      this.setState({
-        display: this.state.display + btn
-      });
+  constructor() {
+    super();
+
+    this.state = {
+      result: ""
+    };
   }
 
-  reset() {
-    this.setState({
-      display: ""
-    });
-  }
-
-  backspace() {
-    try {
+  onClick = button => {
+    if (button === "=") {
+      this.calculate();
+    } else if (button === "C") {
+      this.reset();
+    } else if (button === "CE") {
+      this.backspace();
+    } else if (button === "sqrt") {
+      this.sqrt();
+    } else if (button === "%") {
+      this.percentage();
+    } else {
       this.setState({
-        display: this.state.display.slice(0, -1)
-      });
-    } catch (error) {
-      this.setState({
-        display: ""
+        result: this.state.result + button
       });
     }
-  }
+  };
+
   sqrt() {
     try {
       this.setState({
-        display: Math.sqrt(this.state.display)
+        result: Math.sqrt(this.state.result)
       });
     } catch (error) {
       this.setState({
-        display: ""
-      });
-    }
-  }
-  percentage() {
-    try {
-      this.setState({
-        display: <Percentage number={math.eval(this.state.display)} />
-      });
-    } catch (error) {
-      this.setState({
-        display: ""
+        result: ""
       });
     }
   }
 
-  result() {
+  percentage() {
     try {
-      if (this.state.display.length <= 16)
-        this.setState({
-          display: math.eval(this.state.display)
-        });
-      else
-        this.setState({
-          display: this.state.display
-        });
+      this.setState({
+        result: <Percentage number={this.state.result} />
+      });
     } catch (error) {
       this.setState({
-        display: "Incorrect Input"
+        result: ""
       });
     }
   }
+
+  calculate = () => {
+    var checkResult = "";
+    if (this.state.result.includes("--")) {
+      checkResult = this.state.result.replace("--", "+");
+    } else {
+      checkResult = this.state.result;
+    }
+
+    try {
+      this.setState({
+        // eslint-disable-next-line
+        result: (eval(checkResult) || "") + ""
+      });
+    } catch (e) {
+      this.setState({
+        result: "error"
+      });
+    }
+  };
+
+  reset = () => {
+    this.setState({
+      result: ""
+    });
+  };
+
+  backspace = () => {
+    this.setState({
+      result: this.state.result.slice(0, -1)
+    });
+  };
 
   render() {
     return (
       <div className="wrapper">
         <div className="container">
-          <div className="cal">
-            <Display display={this.state.display} />
-            <Button onClick={this.onClick} />
+          <div className="calculator">
+          <h1>Simple Calculator</h1>
+            <Result result={this.state.result} />
+            <Buttons onClick={this.onClick} />
           </div>
-          <h1>Calculator Application</h1>
+          
         </div>
       </div>
     );

@@ -13,18 +13,8 @@ p {
   padding: 20px 0;
 }
 
-h1,
-h2 {
-  margin-top: 50px;
-  text-align: center;
-  font-weight: 300;
-}
 
-h2 {
-  opacity: 0.5;
-}
-
-.cal {
+.calculator {
   margin: auto;
   margin-top: 220px;
   border: 1px #ffe900 solid;
@@ -50,14 +40,8 @@ h2 {
   width: 100%;
   height: 100%;
   transition: 0.5s all ease;
-  transform: rotateX(60deg) scale(0.7);
   perspective: 800px;
   animation: entry 0.65s ease 1;
-}
-
-.container:hover {
-  transform: rotate(0deg) scale(1) translateY(-80px);
-  transition: 0.5s all ease;
 }
 
 @keyframes entry {
@@ -70,7 +54,7 @@ h2 {
   }
 }
 
-.but {
+.button {
   width: 72px;
   height: 72px;
   border: 1px #fff solid;
@@ -85,11 +69,11 @@ h2 {
   cursor: pointer;
 }
 
-.btn:hover {
+.button:hover {
   background: linear-gradient(to top, #fff, #ddd);
 }
 
-.btn:active {
+button:active {
   box-shadow: inset 0px 0px 80px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -104,12 +88,7 @@ h2 {
   background: -ms-linear-gradient(to bottom, #ffe900, #ffbb00);
 }
 
-.number:hover {
-  background: linear-gradient(to top, #ffe900, #ffbb00);
-  background: -moz-linear-gradient(to top, #ffe900, #ffbb00);
-  background: -webkit-linear-gradient(to top, #ffe900, #ffbb00);
-  background: -ms-linear-gradient(to top, #ffe900, #ffbb00);
-}
+
 
 input[type="button"] {
   outline: none;
@@ -119,12 +98,12 @@ input[type="button"]::-moz-focus-inner {
   border: 0;
 }
 
-.display {
+.result {
   width: 288px;
   height: 72px;
   background: #222;
 }
 
-.display p {
+.result p {
   font-size: 28px;
 }
