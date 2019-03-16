@@ -1,5 +1,5 @@
 import React from "react";
-
+// Display the result for the operation of the calculator application
 class Result extends React.Component {
   render() {
     return (

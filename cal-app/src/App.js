@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import Buttons from "./components/Buttons";
 import Result from "./components/Result";
-//import * as math from "math.js";
 
+// Function to calculate the percentage value of the number
 function Percentage(props) {
   return props.number / 100;
 }
@@ -16,11 +16,11 @@ class App extends Component {
       result: ""
     };
   }
-
+//Function to perform on clicking the buttons
   onClick = button => {
     if (button === "=") {
-      this.calculate();
-    } else if (button === "C") {
+      this.calculate(); 
+    } else if (button === "AC") {
       this.reset();
     } else if (button === "CE") {
       this.backspace();
@@ -30,11 +30,11 @@ class App extends Component {
       this.percentage();
     } else {
       this.setState({
-        result: this.state.result + button
+        result: this.state.result + button //Number concatenation 
       });
     }
   };
-
+//Function to calculate the square root of the number
   sqrt() {
     try {
       this.setState({
@@ -46,7 +46,7 @@ class App extends Component {
       });
     }
   }
-
+// Function to calculate the percentage value of the number
   percentage() {
     try {
       this.setState({
@@ -58,7 +58,7 @@ class App extends Component {
       });
     }
   }
-
+// Calculate the value of the values entered by entering the operator and the operand
   calculate = () => {
     var checkResult = "";
     if (this.state.result.includes("--")) {
@@ -69,6 +69,7 @@ class App extends Component {
 
     try {
       this.setState({
+        //Using eval function to evaluate the results
         // eslint-disable-next-line
         result: (eval(checkResult) || "") + ""
       });
@@ -78,13 +79,13 @@ class App extends Component {
       });
     }
   };
-
+// Clear the value to null
   reset = () => {
     this.setState({
       result: ""
     });
   };
-
+// Removing the values on pressing the button
   backspace = () => {
     this.setState({
       result: this.state.result.slice(0, -1)
@@ -96,7 +97,7 @@ class App extends Component {
       <div className="wrapper">
         <div className="container">
           <div className="calculator">
-          <h1>Simple Calculator</h1>
+          <h1>Calculator</h1>
             <Result result={this.state.result} />
             <Buttons onClick={this.onClick} />
           </div>
